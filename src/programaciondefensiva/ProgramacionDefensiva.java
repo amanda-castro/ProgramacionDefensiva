@@ -19,34 +19,36 @@ public class ProgramacionDefensiva {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        Scanner s = new Scanner("");
-        int c,d;
+        Scanner scanner = new Scanner(System.in);
+        char opcion;
         System.out.println("Ingrese un numero:");
-        int a = s.nextInt();
+        int num1 = scanner.nextInt();
         System.out.println("Ingrese un numero:");
-        int b = s.nextInt();
+        int num2 = scanner.nextInt();
         System.out.println("Ingrese la opcion de lo que desea: ");
         System.out.println("A. Suma");
         System.out.println("B. Resta");
         System.out.println("C. Multiplicacion");
         System.out.println("D. Division");
-        for(d=5;d<a;d++) System.out.print("a");
-        a = s.nextInt();
-        System.out.println("La respuesta de la suma que solicito es:");
-        switch(a)
+        opcion = scanner.next().toUpperCase().charAt(0);
+        System.out.println("El resultado de la operacion solicitada es:");
+        switch(opcion)
         {
-            case 8:
-                System.out.print(Ejercicio1.d(a, b));
+            case 'A':
+                System.out.println(Ejercicio1.suma(num1, num2));
                 break;
                 
-            case 7:
-                System.out.print(Ejercicio1.r(a, b));
+            case 'B':
+                System.out.println(Ejercicio1.resta(num1, num2));
                 break;
-            case 6:
-                System.out.print(Ejercicio1.d(a, b));
+            case 'C':
+                System.out.println(Ejercicio1.multiplicacion(num1, num2));
                 break;
-            case 0:
-                System.out.print(Ejercicio1.r(a, b));
+            case 'D':
+                System.out.println(Ejercicio1.division(num1, num2));
+                break;
+            default:
+                System.out.println("La opcion seleccionada no se encuentra disponible.");
                 break;
                 
         }

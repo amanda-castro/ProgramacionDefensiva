@@ -10,22 +10,22 @@ package programaciondefensiva;
  * @author amand
  */
 public class Ejercicio1 {
-    public static int s(int a, int b)
+    public static int suma(int a, int b)
     {
         return a+b;
     }
     
-    public static int m(int a, int b)
+    public static int multiplicacion(int a, int b)
     {
         return a*b;
     }
     
-    public static int r(int a, int b)
+    public static int resta(int a, int b)
     {
         return a-b;
     }
     
-    public static int d(int a, int b)
+    public static int division(int a, int b)
     {
         return a/b;
     }
