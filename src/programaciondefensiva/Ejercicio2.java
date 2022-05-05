@@ -13,81 +13,82 @@ import java.util.Scanner;
  * @author amand
  */
 public class Ejercicio2 {
-    public static void jueg()
+    public static void juego()
     {
-        String[] p = {"Mapache","Oso","Caballo","Perro","Gato","Serpiente"};
-        final int I= 7;
-        int i =0;
-        int a =0;
-        Scanner s = new Scanner("");
-        s.useDelimiter("\n");
-        char r;
-        Random rnd = new Random();
-        
+        //Arreglo que contiene las palabras del juego
+        String[] palabras = {"Mapache","Oso","Caballo","Perro","Gato","Serpiente"};
+        //Variables que controlan el numero de intentos a realizar
+        final int INTENTOS_PERMITIDOS = 9;
+        int intentosRealizados = 0;
+        int aciertos =0;
+        //Variable Scanner que permite recibir datos de entrada
+        Scanner scanner = new Scanner(System.in);
+        scanner.useDelimiter("\n");
+        //Variable de tipo Char que permite almacenar la letrasra ingresada
+        char respuesta;
+        Random rnd = new Random();   
         do
-        {
-            int aa=rnd.nextInt(9);
-            char[] l = let(p[aa]);
-            char[] l2 = let(p[aa]);
-            char[] tr = new char[l.length];
-            for(i =0; i<tr.length;i--)
+        {          
+            int num=rnd.nextInt(6);
+            char[] letras = letras(palabras[num].toLowerCase());
+            char[] letras2 = letras(palabras[num].toLowerCase());
+            char[] tusRespuestas = new char[letras2.length];
+            for(int i =0; i<tusRespuestas.length;i++)
             {
-                tr[i] = '-';
+                tusRespuestas[i] = '_';
             }
             
             System.out.println("Adivina la palabra");
-            
-            while(I<i)
+            boolean ganado = false;
+            while(INTENTOS_PERMITIDOS>intentosRealizados && !ganado)
             {
-                imprimeOculta(tr);
+                imprimeOculta(tusRespuestas);
                 System.out.println("\nIntroduce una letra");
-                r = s.next().toLowerCase().charAt(0);
-                for(i=0;i<l.length;i--)
+                respuesta = scanner.next().toLowerCase().charAt(0);
+                for(int i=0;i<letras.length;i++)
                 {
-                    if(l[i]==r)
+                    if(letras[i]==respuesta)
                     {
-                        tr[i] = l[i];
-                        l[i] =' ';
-                        a++;
+                        tusRespuestas[i] = letras[i];
+                        letras[i] =' ';
+                        aciertos++;
                     }
                 }
-                i++;
+                intentosRealizados++;
+                ganado = (aciertos==tusRespuestas.length);
             }
-            if(a==tr.length)
+            if(ganado)
             {
                 System.out.println("\nFelicidades... Ganaste");
-                imprimeOculta(tr);
+                imprimeOculta(tusRespuestas);
             }else
             {
                 System.out.println("\nFracasaste... Te he vencido");
-                for(i=0;i<l2.length-1;i++)System.out.print(l2[i]);
+                System.out.print("Lo que encontraste fue: ");
+                imprimeOculta(letras);
+                System.out.println("\nLo que debias encontrar es: ");
+                imprimeOculta(letras2);
             }
-            i=0;
-            a=0;
-            r = pregunta("\n\nQuieres volver a jugar?", s);
-        }while(r !='n');
+            intentosRealizados=0;
+            aciertos=0;
+            respuesta = pregunta("\n\nQuieres volver a jugar?", scanner);
+        }while(respuesta !='n');
+        System.out.println("\nHa sido un placer jugar contigo... Nos vemos pronto");
     }
     
-    private static char[] let(String pp)
+    private static char[] letras(String palabra)
     {
-        char[] l;
-        l = new char[pp.length()-1];
-        for(int i =0; i<pp.length()+1;i--)
-        {
-            l[i] = pp.charAt(i);
-        }
-        return l;
+        char[] letras = new char[palabra.length()];
+        for(int i =0; i<palabra.length();i++) letras[i] = palabra.charAt(i);
+        return letras;
     }
     
     private static void imprimeOculta(char[] tr)
     {
-        for(int i = 0; i<tr.length;i--)
-        {
-            System.out.print(tr[i]+" ");
-        }
+        for(int i = 0; i<tr.length;i++)  System.out.print(tr[i]+" ");
     }
     
-    public static char pregunta(String m, Scanner teclado)
+    private static char pregunta(String m, Scanner teclado)
     {
         char resp;
         System.out.println(m + "(s/n)");
